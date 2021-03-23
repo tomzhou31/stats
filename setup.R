@@ -4,7 +4,7 @@
 ## author  : TOM ZHOU
 ## DATE    : 10/04/2020
 ## Purpose : Initialise the environment and define univsiral variables
-## system  : Windows 10     
+## system  : macro os    
 ## Update history
 ##          version   update date   note
 ##             1      10/04/2020    original
