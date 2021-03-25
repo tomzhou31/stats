@@ -13,15 +13,15 @@ source("functions.R")
 
 library(readxl)
 library(dplyr)
-library(pinyin)
-library(sas7bdat)
+library(pinyin) #change Chinese characters into Pinyin
+library(sas7bdat) #import data from SPSS,STATA
 library(foreign) #import data from SPSS,STATA
 
 ## copy data from /raw folder to target file - input
-file.copy(file.path(RAW_WD,list.files(RAW_WD)), INPUT_WD)
+file.copy(file.path(raw,list.files(raw)), input)
 
 ##NOTE: make sure there is no "." in the file name (except the postfix like .xls)
-data_list_org <- list.files(INPUT_WD, pattern=NULL, all.files=FALSE, full.names=FALSE)
+data_list_org <- list.files(input, pattern=NULL, all.files=FALSE, full.names=FALSE)
 data_list <- gsub("[^._a-z]", "", data_list_org, ignore.case = TRUE) ##keep alphabetas, dot and underscore
 data_list <- tolower(data_list) 
 
@@ -35,10 +35,10 @@ for (i in 1:len_list) {
   
   ## excel format
   if (gregexpr(".xls", data_list[i], fixed = TRUE) >0 ) {
-    df <- read_excel( paste0(INPUT_WD,  "/", data_list_org[i] ), sheet = tab_name)
-    ## rename the varibales  - replece the Chinese characters to pinyin 
+    df <- read_excel( paste0(input,  "/", data_list_org[i] ), sheet = tab_name)
+    ## rename the variables  - replace the Chinese characters to pinyin 
     ##  and delete the special characters like * -  
-    df_name <- read_excel(paste0(INPUT_WD,  "/", data_list_org[i] ), sheet = 1, col_names = FALSE,n_max = 1)
+    df_name <- read_excel(paste0(input,  "/", data_list_org[i] ), sheet = 1, col_names = FALSE,n_max = 1)
     names(df) <- new_names()
     # assign(gsub(".csv","",data_list[i]) , df)
     # assign(paste(gsub(".csv","",data_list[i]) , "_names", sep = "" ) , oraginal_name()) 
@@ -49,8 +49,8 @@ for (i in 1:len_list) {
   
   ## CSV format
   if (gregexpr(".csv", data_list[i], fixed = TRUE) >0 ){
-    df <-  read.csv( paste0(INPUT_WD,  "/", data_list_org[i] ), header = TRUE)
-    df_name <- read.csv( paste0(INPUT_WD,  "/", data_list_org[i] ), header = FALSE,nrows=1)
+    df <-  read.csv( paste0(input,  "/", data_list_org[i] ), header = TRUE)
+    df_name <- read.csv( paste0(input,  "/", data_list_org[i] ), header = FALSE,nrows=1)
     names(df) <- new_names()
     
     assign(paste("raw_", i, sep = "" ) , df)
@@ -62,13 +62,13 @@ for (i in 1:len_list) {
   
   ## SAS format
   if (gregexpr(".sas7bdat", data_list[i], fixed = TRUE) >0 ){
-    assign(paste("raw_", i, sep = "" ) , read.sas7bdat( paste0(INPUT_WD,  "/", data_list_org[i] )) )
+    assign(paste("raw_", i, sep = "" ) , read.sas7bdat( paste0(input,  "/", data_list_org[i] )) )
   }
   
   ## SPSS format
   if (gregexpr(".sav", data_list[i], fixed = TRUE) >0 ){
     assign(paste("raw_", i, sep = "") ,
-        read.spss(paste0(INPUT_WD,  "/", data_list_org[i] ), to.data.frame=TRUE,use.value.labels=FALSE) )
+        read.spss(paste0(input,  "/", data_list_org[i] ), to.data.frame=TRUE,use.value.labels=FALSE) )
   }
   
 }

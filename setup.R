@@ -24,17 +24,16 @@ RUN_DATE <- Sys.Date()                 ## get the sys date as running date
 FOLD_ALIAS <- "test"
 FOLD_NAME <- paste(format(RUN_DATE, "%Y"),format(RUN_DATE, "%m"), format(RUN_DATE, "%d"), sep="_" ) ## format like "2020_04_11"
 
-FOLD_NAME <- paste(FOLD_NAME, FOLD_ALIAS, sep = "_")  
+FOLD_NAME <- paste(FOLD_ALIAS,FOLD_NAME, sep = "_")  
 
-
-
-WD <- "user/tomzhou/downloads"               ## difined the working direction
-RAW_WD <- paste(WD,"/raw", sep = "")   ## assign raw data direction
-INPUT_WD <-  paste(WD,"/input/",FOLD_NAME, sep = "")   ## assign input direction
-OUTPUT_WD <- paste(WD,  "/output/",FOLD_NAME, sep = "") ## assign output direcction
+WD <- "/Users/tomzhou/Downloads/git_project/stats"               ## difined the working direction
+raw <- paste(WD,"/raw", sep = "")   ## assign raw data direction
+input <-  paste(WD,"/input/",FOLD_NAME, sep = "")   ## assign input direction
+output <- paste(WD,  "/output/",FOLD_NAME, sep = "") ## assign output direcction
 
 ## create folder for input data and output result for each project
-dir.create(INPUT_WD)
+dir.create(input)
+dir.create(output)
 ## set up the work direction
 setwd(WD)
 getwd()
