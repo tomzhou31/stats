@@ -3,8 +3,8 @@
 ## change the Chinese character to pinyin for the variable names
 new_names <- function(){
   
-  names(df_name) <- NULL 
-  df_name <- unlist(c(df_name)) ## transfer dataframe to vector method = c("quanpin", "tone", "toneless"),
+  ##names(df_name) <- NULL 
+  df_name <- unlist(c(df_name)) ## transfer data frame to vector method = c("quanpin", "tone", "toneless"),
   df_name <- gsub( ' ', '', trimws(df_name) )
   df_name <- py(char =df_name , sep = "", other_replace = NULL, dic = pydic(method ="toneless" ))# Chinese character - pinyin
   df_name <- gsub("[^A-Za-z0-9_]" ,"" ,df_name, ignore.case = TRUE)
@@ -22,7 +22,7 @@ new_names <- function(){
   return (temp_name)
 }
 
-## keep the oraginal name of the import data
+## keep the original name of the import data
 oraginal_name <- function(){
   names(df_name) <- NULL 
   df_name_org <- unlist(c(df_name))
